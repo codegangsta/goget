@@ -11,7 +11,7 @@ func main() {
 	// setup newrelic
 	agent := gorelic.NewAgent()
 	agent.Verbose = true
-	agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE")
+	agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE_KEY")
 	err := agent.Run()
 	if err != nil {
 		log.Fatal(err)
