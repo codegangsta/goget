@@ -3,16 +3,18 @@ package main
 import (
 	"github.com/codegangsta/martini"
 	"github.com/yvasiyarov/gorelic"
+	"log"
 	"os"
 )
 
 func main() {
 	// setup newrelic
-	if martini.Env == martini.Prod {
-		agent := gorelic.NewAgent()
-		agent.Verbose = true
-		agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE")
-		agent.Run()
+	agent := gorelic.NewAgent()
+	agent.Verbose = true
+	agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE")
+	err := agent.Run()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	m := martini.Classic()
