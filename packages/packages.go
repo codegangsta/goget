@@ -3,7 +3,6 @@ package packages
 import (
 	"github.com/codegangsta/martini"
 	"github.com/codegangsta/martini-contrib/render"
-	"net/http"
 	"os"
 )
 
