@@ -13,6 +13,7 @@ func main() {
 	}))
 
 	m.Get("/:package", packages.ServeMaster)
+	m.Get("/:package/:version", packages.ServePackage)
 
 	m.Run()
 }

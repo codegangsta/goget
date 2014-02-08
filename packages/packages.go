@@ -1,6 +1,7 @@
 package packages
 
 import (
+	"github.com/codegangsta/goget/tags"
 	"github.com/codegangsta/martini"
 	"github.com/codegangsta/martini-contrib/render"
 	"os"
@@ -41,4 +42,18 @@ func ServeMaster(params martini.Params, r render.Render) {
 		Host    string
 		Package Package
 	}{host, p})
+}
+
+func ServePackage(params martini.Params, r render.Render) {
+	p := FindPackage(params["package"])
+	t, err := tags.GetTag(p.Repo, params["version"])
+	if err != nil {
+		r.JSON(500, err)
+	}
+
+	r.HTML(200, "package", struct {
+		Host    string
+		Package Package
+		Tag     tags.Tag
+	}{host, p, t})
 }
