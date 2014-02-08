@@ -4,7 +4,10 @@ import (
 	"github.com/codegangsta/martini"
 	"github.com/codegangsta/martini-contrib/render"
 	"net/http"
+	"os"
 )
+
+var host = os.Getenv("GOGET_HOST")
 
 // Packages is a map of packages to github repos. For now this is
 // a variable but eventually it should be in a configuration file
@@ -28,7 +31,7 @@ func FindPackage(name string) Package {
 	return Package{}
 }
 
-func ServeMaster(params martini.Params, r render.Render, req *http.Request) {
+func ServeMaster(params martini.Params, r render.Render) {
 	p := FindPackage(params["package"])
 	if len(p.Name) < 1 {
 		r.Error(404)
@@ -38,5 +41,5 @@ func ServeMaster(params martini.Params, r render.Render, req *http.Request) {
 	r.HTML(200, "master", struct {
 		Host    string
 		Package Package
-	}{req.URL.Host, p})
+	}{host, p})
 }
