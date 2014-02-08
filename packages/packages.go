@@ -48,6 +48,7 @@ func ServePackage(params martini.Params, r render.Render) {
 	t, err := GetTag(p.Repo, params["version"])
 	if err != nil {
 		r.JSON(500, err)
+		return
 	}
 
 	r.HTML(200, "package", struct {
