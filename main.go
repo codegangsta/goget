@@ -2,21 +2,9 @@ package main
 
 import (
 	"github.com/codegangsta/martini"
-	"github.com/yvasiyarov/gorelic"
-	"log"
-	"os"
 )
 
 func main() {
-	// setup newrelic
-	agent := gorelic.NewAgent()
-	agent.Verbose = true
-	agent.NewrelicLicense = os.Getenv("NEW_RELIC_LICENSE_KEY")
-	err := agent.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	m := martini.Classic()
 
 	m.Get("/", func() string {
