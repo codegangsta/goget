@@ -33,7 +33,7 @@ func FindPackage(name string) Package {
 func ServeMaster(params martini.Params, r render.Render) {
 	p := FindPackage(params["package"])
 	if len(p.Name) < 1 {
-		r.Error(404)
+		r.HTML(404, "error", "Package not found")
 		return
 	}
 
@@ -47,7 +47,7 @@ func ServePackage(params martini.Params, r render.Render) {
 	p := FindPackage(params["package"])
 	t, err := GetTag(p.Repo, params["version"])
 	if err != nil {
-		r.JSON(500, err)
+		r.HTML(500, "error", err)
 		return
 	}
 
